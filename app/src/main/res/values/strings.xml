@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">YoliToDo</string>
+    <string name="addListButton">Add List</string>
 </resources>
