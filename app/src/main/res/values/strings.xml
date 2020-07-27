@@ -6,6 +6,6 @@
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
     <string name="listViewOptions">listViewOptions</string>
-    <string name="myList">My Lists</string>
+    <string name="myList">As To Do List</string>
     <string name="addReminderButton">Add Reminder</string>
 </resources>
