@@ -118,5 +118,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return items;
     }
 
+    public void deleteParent (Integer position) {
+        // Get writable database
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+
+        sqLiteDatabase.delete(TABLE_NAME,"id=?" ,new String[]{position.toString()});
+        sqLiteDatabase.delete(REMINDER_TABLE_NAME,"childparentid=?" ,new String[]{position.toString()});
+
+        sqLiteDatabase.close();
+    }
+
+    public void deleteChild(Integer position){
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+
+        sqLiteDatabase.delete(REMINDER_TABLE_NAME,"childparentid=?" ,new String[]{position.toString()});
+
+        sqLiteDatabase.close();
+
+    }
+
 
 }
