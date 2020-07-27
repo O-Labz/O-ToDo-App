@@ -6,43 +6,35 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/reminderHeader"
-        android:layout_width="403dp"
-        android:layout_height="47dp"
-        android:layout_marginStart="10dp"
-        android:text="TextView"
-        android:textSize="30sp"
-        android:textStyle="bold|italic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.cardview.widget.CardView
         android:layout_width="409dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/reminderHeader"
-        tools:layout_editor_absoluteX="1dp" >
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="47dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <CheckBox
-                android:id="@+id/checkBox"
-                android:layout_width="40dp"
-                android:layout_height="49dp"
-                android:layout_marginStart="10dp"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <TextView
-                android:id="@+id/reminderItem"
-                android:layout_width="360dp"
-                android:layout_height="43dp"
-                android:text="TextView"
-                android:textSize="24sp"
-                app:layout_constraintStart_toEndOf="@+id/checkBox"
-                tools:layout_editor_absoluteY="8dp" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="3dp"
+        tools:layout_editor_absoluteY="-6dp">
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="40dp"
+            android:layout_height="49dp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/reminderItem"
+            android:layout_width="360dp"
+            android:layout_height="43dp"
+            android:layout_marginTop="8dp"
+            android:text="TextView"
+            android:textSize="24sp"
+            app:layout_constraintStart_toEndOf="@+id/checkBox"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

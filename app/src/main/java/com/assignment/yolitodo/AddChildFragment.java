@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,13 +14,11 @@ import android.widget.Toast;
 
 import androidx.fragment.app.DialogFragment;
 
+public class AddChildFragment extends DialogFragment {
 
-
-
-public class AddListFragment extends DialogFragment {
+    public final static String SHARED_STORAGE = "sharedStorage";
 
     EditText editText;
-
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -31,9 +30,9 @@ public class AddListFragment extends DialogFragment {
 
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
-        builder.setView(inflater.inflate(R.layout.fragment_add_list, null))
+        builder.setView(inflater.inflate(R.layout.fragment_add_child_list, null))
                 // Add action buttons
-                .setMessage(R.string.listDialogueName)
+                .setMessage(R.string.addReminderButton)
                 .setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
@@ -45,7 +44,7 @@ public class AddListFragment extends DialogFragment {
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        AddListFragment.this.getDialog().cancel();
+                        AddChildFragment.this.getDialog().cancel();
                     }
                 });
         return builder.create();
@@ -58,11 +57,13 @@ public class AddListFragment extends DialogFragment {
         // Creates instance of db
         DatabaseHelper dbHelper = new DatabaseHelper(getActivity());
 
-        editText = getDialog().findViewById(R.id.editTextTextPersonName);
+        editText = getDialog().findViewById(R.id.childItemName);
         String message = editText.getText().toString();
 
+        int position = loadItemClicked();
+
         if (!message.isEmpty()){
-            dbHelper.addText(message);
+            dbHelper.addReminder(message,position);
 
             // Show Toast
             Context context = getActivity();
@@ -81,8 +82,15 @@ public class AddListFragment extends DialogFragment {
         Context context = getActivity();
 
         // Refresh Main activity
-        Intent intent = new Intent(context,MainActivity.class);
+        Intent intent = new Intent(context,ReminderActivity.class);
         context.startActivity(intent);
     }
 
+    public int loadItemClicked () {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(SHARED_STORAGE,Context.MODE_PRIVATE);
+
+        int defaultValue = sharedPreferences.getInt("Position", 1);
+
+        return defaultValue;
+    }
 }

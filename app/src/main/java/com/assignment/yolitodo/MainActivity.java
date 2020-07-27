@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    /** Called when the user taps the Send button */
+    /** Called when the user taps the add list button */
     public void showListDialog(View view) {
         // Do something in response to button
 

@@ -22,6 +22,7 @@
         android:id="@+id/reminderButton"
         android:layout_width="412dp"
         android:layout_height="69dp"
+        android:onClick="showChildListDialog"
         android:text="@string/addReminderButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
