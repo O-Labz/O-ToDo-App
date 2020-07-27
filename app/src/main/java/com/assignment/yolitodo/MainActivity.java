@@ -71,5 +71,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+//    public void showReminders(int position) {
+//        Intent intent = new Intent(this, ReminderActivity.class);
+//        EditText editText = (EditText) findViewById(R.id.editText);
+//        String message = editText.getText().toString();
+//        intent.putExtra(EXTRA_MESSAGE, message);
+//        startActivity(intent);
+//        showToast("message");
+//        System.out.println("Omri: "+position);
+//    }
+
 
 }
