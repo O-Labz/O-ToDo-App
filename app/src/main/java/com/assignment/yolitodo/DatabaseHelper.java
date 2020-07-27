@@ -17,7 +17,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String SQL_CREATE_ENTRIES = "CREATE TABLE " + TABLE_NAME + "(id INTEGER PRIMARY KEY, parentname TEXT)";
 
-    private static final String SQL_CREATE_REMINDER_ENTRIES = "CREATE TABLE " + REMINDER_TABLE_NAME + "(id INTEGER PRIMARY KEY, childname TEXT, childparentid INTEGER)";
+    private static final String SQL_CREATE_REMINDER_ENTRIES = "CREATE TABLE " + REMINDER_TABLE_NAME + "(id INTEGER PRIMARY KEY, childname TEXT, childparentid INTEGER, childposition INTEGER)";
 
     private static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " + TABLE_NAME;
 
@@ -67,14 +67,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    public boolean addReminder (String text, int position) {
+    public boolean addReminder (String text,int parentid, int position) {
         // Get writable database
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 
         //Create content Values
         ContentValues contentValues = new ContentValues();
         contentValues.put("childname", text);
-        contentValues.put("childparentid", position);
+        contentValues.put("childparentid", parentid);
+        contentValues.put("childposition", position);
 
         // Add values to database
         sqLiteDatabase.insert(REMINDER_TABLE_NAME,null,contentValues);
@@ -118,6 +119,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return items;
     }
 
+    public ArrayList getRemindersInList(int parentId){
+        // Get readable database
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        // Create arrayList to hold values
+        ArrayList<String> items = new ArrayList<>();
+
+        //Create cursor to select values
+        Cursor cursor = sqLiteDatabase.rawQuery(SELECT_CHILDREN_ENTRIES + parentId,null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()){
+            items.add(cursor.getString(cursor.getColumnIndex("childname")));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return items;
+    }
+
     public void deleteParent (Integer position) {
         // Get writable database
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
@@ -128,10 +146,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.close();
     }
 
-    public void deleteChild(Integer position){
+    public void deleteChild(Integer parentId, Integer position){
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 
-        sqLiteDatabase.delete(REMINDER_TABLE_NAME,"childparentid=?" ,new String[]{position.toString()});
+        sqLiteDatabase.delete(REMINDER_TABLE_NAME,"childparentid=? AND childposition=?" ,new String[]{parentId.toString(), position.toString()});
 
         sqLiteDatabase.close();
 

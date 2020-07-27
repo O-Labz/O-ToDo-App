@@ -60,10 +60,14 @@ public class AddChildFragment extends DialogFragment {
         editText = getDialog().findViewById(R.id.childItemName);
         String message = editText.getText().toString();
 
-        int position = loadItemClicked();
+        int parentId = loadItemClicked();
+
+        int position = dbHelper.getRemindersInList(parentId).size();
+
+        position = position + 1;
 
         if (!message.isEmpty()){
-            dbHelper.addReminder(message,position);
+            dbHelper.addReminder(message,parentId, position);
 
             // Show Toast
             Context context = getActivity();
@@ -81,8 +85,9 @@ public class AddChildFragment extends DialogFragment {
     public void refreshActivity(){
         Context context = getActivity();
 
-        // Refresh Main activity
-        Intent intent = new Intent(context,ReminderActivity.class);
+        // Refresh Reminder activity
+        Intent intent = new Intent(context, ReminderActivity.class);
+        intent.putExtra("itemId",loadItemClicked ());
         context.startActivity(intent);
     }
 

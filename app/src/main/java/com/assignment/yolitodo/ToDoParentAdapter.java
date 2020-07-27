@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -46,6 +47,18 @@ public class ToDoParentAdapter extends RecyclerView.Adapter<ToDoParentAdapter.My
                 context.startActivity(intent);
             }
         });
+        holder.deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatabaseHelper dbHelper = new DatabaseHelper(context);
+                int result = position + 1;
+                dbHelper.deleteParent(result);
+
+                // Refresh Activity
+                Intent intent = new Intent(context,MainActivity.class);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -57,12 +70,14 @@ public class ToDoParentAdapter extends RecyclerView.Adapter<ToDoParentAdapter.My
 
         TextView itemText;
         ConstraintLayout mainLayout;
+        ImageView deleteButton;
 
         public MyViewHolder(@NonNull View itemView){
             super(itemView);
 
             itemText = itemView.findViewById(R.id.textItem);
             mainLayout = itemView.findViewById(R.id.mainLayout);
+            deleteButton = itemView.findViewById(R.id.parentDelete);
 
         }
     }
