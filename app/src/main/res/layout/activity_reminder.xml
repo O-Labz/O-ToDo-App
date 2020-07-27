@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ReminderActivity">
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/listViewOptions"
+        android:id="@+id/reminderList"
         android:layout_width="419dp"
         android:layout_height="654dp"
         android:background="#FFFFFF"
@@ -19,17 +19,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/reminderButton"
         android:layout_width="412dp"
         android:layout_height="69dp"
-        android:onClick="showListDialog"
-        android:text="@string/addListButton"
+        android:onClick="showChildListDialog"
+        android:text="@string/addReminderButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
