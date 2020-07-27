@@ -5,10 +5,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 
@@ -27,24 +27,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Initiate Database
+
+        DatabaseHelper dbHelper = new DatabaseHelper(MainActivity.this);
+
+
+        // Set up list view
+
+        // Find ListView
         toDoParentView = findViewById(R.id.listViewOptions);
 
-        toDoContainers = new ArrayList();
-
-        toDoContainers.add("hello");
-        toDoContainers.add("omri");
-        toDoContainers.add("hi");
-        toDoContainers.add("good");
+        // Get items from database
+        toDoContainers = dbHelper.getAllItems();
 
         ToDoParentAdapter toDoParentAdapter = new ToDoParentAdapter(MainActivity.this, toDoContainers);
 
         toDoParentView.setAdapter(toDoParentAdapter);
 
-
         toDoParentView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-
-
-
 
     }
 
@@ -70,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
         toast.show();
 
     }
-
 
 
 }

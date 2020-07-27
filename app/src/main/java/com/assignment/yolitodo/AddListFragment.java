@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,10 @@ import com.assignment.yolitodo.MainActivity;
 
 
 public class AddListFragment extends DialogFragment {
+
+    EditText editText;
+
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
@@ -35,7 +40,7 @@ public class AddListFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int id) {
                         // Call function in main activity to add a new list
 
-                        addList(null);
+                        addToList(null);
 
                     }
                 })
@@ -48,18 +53,37 @@ public class AddListFragment extends DialogFragment {
     }
 
 
-    public void addList(View view) {
+    public void addToList(View view) {
         // Do something in response to button
 
-        // creates instance of main activity
-        MainActivity toast = new MainActivity();
+        // Creates instance of db
+        DatabaseHelper dbHelper = new DatabaseHelper(getActivity());
 
-        EditText editText = (EditText)getDialog().findViewById(R.id.editTextTextPersonName);
+        editText = getDialog().findViewById(R.id.editTextTextPersonName);
         String message = editText.getText().toString();
 
-        // triggers toast message calling function in main activity
-//        toast.showToast(message);
+        if (!message.isEmpty()){
+            dbHelper.addText(message);
 
+            // Show Toast
+            Context context = getActivity();
+            String text = "New List " + message + " Created";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+
+            refreshActivity();
+        }
+    }
+
+
+    public void refreshActivity(){
+        Context context = getActivity();
+
+        // Refresh Main activity
+        Intent intent = new Intent(context,MainActivity.class);
+        context.startActivity(intent);
     }
 
 }
