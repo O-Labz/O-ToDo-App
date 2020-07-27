@@ -13,10 +13,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "ToDoList.db";
     public static final String TABLE_NAME = "parents";
+    public static final String REMINDER_TABLE_NAME = "children";
 
     private static final String SQL_CREATE_ENTRIES = "CREATE TABLE " + TABLE_NAME + "(id INTEGER PRIMARY KEY, parentname TEXT)";
 
+    private static final String SQL_CREATE_REMINDER_ENTRIES = "CREATE TABLE " + REMINDER_TABLE_NAME + "(id INTEGER PRIMARY KEY, childname TEXT)";
+
     private static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " + TABLE_NAME;
+
+    private static final String SQL_DELETE_REMINDER_ENTRIES = "DROP TABLE IF EXISTS " + REMINDER_TABLE_NAME;
 
     private static final String SELECT_DELETE_ENTRIES = "select * from " + TABLE_NAME;
 
@@ -28,6 +33,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES);
+        sqLiteDatabase.execSQL(SQL_CREATE_REMINDER_ENTRIES);
 
     }
 
@@ -36,6 +42,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // This database is only a cache for online data, so its upgrade policy is
         // to simply to discard the data and start over
         sqLiteDatabase.execSQL(SQL_DELETE_ENTRIES);
+        sqLiteDatabase.execSQL(SQL_CREATE_REMINDER_ENTRIES);
         onCreate(sqLiteDatabase);
     }
 
@@ -58,6 +65,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return true;
     }
 
+    public boolean addReminder (String text) {
+        // Get writable database
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+
+        //Create content Values
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("childname", text);
+
+        // Add values to database
+        sqLiteDatabase.insert(REMINDER_TABLE_NAME,null,contentValues);
+
+        return true;
+    }
+
     public ArrayList getAllItems(){
         // Get readable database
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
@@ -69,6 +90,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.moveToFirst();
         while (!cursor.isAfterLast()){
             items.add(cursor.getString(cursor.getColumnIndex("parentname")));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return items;
+    }
+
+    public ArrayList getAllReminderItems(){
+        // Get readable database
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        // Create arrayList to hold values
+        ArrayList<String> items = new ArrayList<>();
+
+        //Create cursor to select values
+        Cursor cursor = sqLiteDatabase.rawQuery(SELECT_DELETE_ENTRIES,null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()){
+            items.add(cursor.getString(cursor.getColumnIndex("childname")));
             cursor.moveToNext();
         }
         cursor.close();

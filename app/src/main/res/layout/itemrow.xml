@@ -15,15 +15,35 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="27dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="7dp"
+                app:layout_constraintEnd_toStartOf="@+id/textItem"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/listimage" />
+
             <TextView
                 android:id="@+id/textItem"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="20dp"
+                android:layout_width="372dp"
+                android:layout_height="41dp"
+                android:layout_marginStart="5dp"
                 android:text="TextView"
                 android:textSize="28sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toEndOf="@+id/imageView" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="29dp"
+                android:layout_height="25dp"
+                android:layout_marginEnd="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/deleteimage"
+                tools:layout_editor_absoluteY="8dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
