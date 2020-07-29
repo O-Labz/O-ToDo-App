@@ -71,18 +71,15 @@ public class AddListFragment extends DialogFragment {
         String message = editText.getText().toString();
 
         calendarView.setOnDateChangeListener( new CalendarView.OnDateChangeListener() {
+            @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
+
                 calendar = new GregorianCalendar( year, month, dayOfMonth );
                 calendar.set(Calendar.YEAR, year);
                 calendar.set(Calendar.MONTH, month);
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             }
         });
-
-
-        System.out.println(calendarView.getDate());
-
-
 
         String selectedDateString = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
 
