@@ -11,15 +11,15 @@ import android.view.View;
 
 import android.widget.Toast;
 
-
-import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 public class MainActivity extends AppCompatActivity {
 
 
-    private ArrayList toDoContainers;
 
-    private RecyclerView toDoParentView;
+    private LinkedHashMap<String, String> toDoContainers;
+
+    private RecyclerView toDoParentView ;
 
 
     @Override
@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
         // Initiate Database
 
         DatabaseHelper dbHelper = new DatabaseHelper(MainActivity.this);
-
 
         // Set up list view
 

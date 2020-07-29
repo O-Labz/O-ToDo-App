@@ -13,4 +13,10 @@ android:layout_height="wrap_content">
         android:hint="@string/list"
         android:ems="12"
         android:inputType="textPersonName" />
+
+    <CalendarView
+        android:id="@+id/calendar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>

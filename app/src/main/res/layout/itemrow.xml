@@ -28,13 +28,43 @@
 
             <TextView
                 android:id="@+id/textItem"
-                android:layout_width="332dp"
-                android:layout_height="38dp"
+                android:layout_width="331dp"
+                android:layout_height="41dp"
                 android:layout_marginStart="5dp"
                 android:text="TextView"
                 android:textSize="28sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/imageView" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="45dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/dueLabel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textItem" />
+
+            <TextView
+                android:id="@+id/positionText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:text="T"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/dueLabel"
+                android:layout_width="261dp"
+                android:layout_height="22dp"
+                android:layout_marginStart="93dp"
+                android:layout_marginTop="4dp"
+                android:text="date"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView"
+                app:layout_constraintStart_toStartOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/textItem" />
 
             <ImageView
                 android:id="@+id/parentDelete"
@@ -44,6 +74,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/deleteimage" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

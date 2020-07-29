@@ -8,17 +8,24 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.CalendarView;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.fragment.app.DialogFragment;
 
-
+import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 
 public class AddListFragment extends DialogFragment {
 
     EditText editText;
+    CalendarView calendarView;
+
+    Calendar calendar = Calendar.getInstance();
 
 
     @Override
@@ -59,10 +66,27 @@ public class AddListFragment extends DialogFragment {
         DatabaseHelper dbHelper = new DatabaseHelper(getActivity());
 
         editText = getDialog().findViewById(R.id.editTextTextPersonName);
+        calendarView = getDialog().findViewById(R.id.calendar);
+
         String message = editText.getText().toString();
 
+        calendarView.setOnDateChangeListener( new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
+
+                calendar = new GregorianCalendar( year, month, dayOfMonth );
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, month);
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            }
+        });
+
+        String selectedDateString = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
+
+
+
         if (!message.isEmpty()){
-            dbHelper.addText(message);
+            dbHelper.addText(selectedDateString, message);
 
             // Show Toast
             Context context = getActivity();
